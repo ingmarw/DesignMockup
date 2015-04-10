@@ -9,27 +9,33 @@
     <link rel="import" href="bower_components/google-map-master/google-map.html">
     <link rel="import" href="bower_components/google-map-master/google-map-directions.html">
     <link rel="import" href="bower_components/polymer/polymer.html">
-
-    <style>
-        #controlsToggle {
-            position: absolute;
-            left: 10%;
-            bottom: 10%;
-        }
-    </style>
+    <link rel="import" href="bower_components/google-apis/google-apis.html">
 </head>
+
 <body fullbleed unresolved>
 
-<google-map latitude="37.779" longitude="-122.3892" minZoom="9" maxZoom="11" fit>
-    <google-map-marker latitude="37.779" longitude="-122.3892"
-                       title="Go Giants!" draggable="true">
-        <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/49/San_Francisco_Giants_Cap_Insignia.svg/200px-San_Francisco_Giants_Cap_Insignia.svg.png" />
+<google-map latitude="48.570211" longitude="13.432227" minZoom="12" maxZoom="17" fit> <!--citycenter-->
+
+    <!--Clublocation-->
+    <google-map-marker latitude="48.614463" longitude="13.424502"
+                       title="title" draggable="true">
+        <img src="clubimage" />
     </google-map-marker>
+
+    <!-- This part is showing the distance. startAddress could be the the citycenter or the actual location, endAddress the club -->
+    <template is="auto-binding">
+        <google-map-directions map="{{map}}"
+                               startAddress="48.570211, 13.432227"
+                               endAddress="48.614463, 13.424502"
+                               travelMode="WALKING"
+                               duration></google-map-directions>
+        <google-map map="{{map}}" latitude="48.570211" longitude="13.432227"></google-map>
+    </template>
+
 </google-map>
 
-<google-map-directions startAddress="San Francisco" endAddress="Mountain View"></google-map-directions>
 
-<button id="controlsToggle" onclick="toggleControls()">Toggle controls</button>
+
 
 <script>
     var gmap = document.querySelector('google-map');
