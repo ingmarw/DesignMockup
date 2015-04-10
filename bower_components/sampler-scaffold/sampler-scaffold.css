@@ -156,3 +156,13 @@ polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
   left: 0;
   overflow: auto;
 }
+
+.sidenav {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    margin-top: 20px;
+    margin-right:4%;
+    border-left: 1px solid darkgrey;
+
+}

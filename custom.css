@@ -1,0 +1,14 @@
+/* Customized CSS file
+
+** Ingmar Wein - 2015 **
+
+*/
+
+.cardlist {
+    border: 1px solid #bebebe;
+    padding: 16px;
+    margin: 16px 15% 16px 16px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #555;"
+}
