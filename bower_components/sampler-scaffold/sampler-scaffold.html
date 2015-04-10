@@ -36,98 +36,63 @@ of the scaffold.
 <link rel="import" href="../core-menu/core-menu.html">
 <link rel="import" href="../core-menu/core-submenu.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
-<link rel="import" href="../core-menu-button/core-menu-button.html">
-<link rel="import" href="../core-scroll-header-panel/core-scroll-header-panel.html">
-<link rel="import" href="../core-dropdown/core-dropdown.html">
-<link href="../core-collapse/core-collapse.html" rel="import">
-<link href="../core-icons/core-icons.html" rel="import">
-<link href="../paper-button/paper-button.html" rel="import">
-<link href="../paper-dropdown/paper-dropdown.html" rel="import">
-<link href="../paper-icon-button/paper-icon-button.html" rel="import">
-<link href="../paper-item/paper-item.html" rel="import">
-
-<link href="../paper-menu-button/paper-menu-button.html" rel="import">
-
-
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 
 <polymer-element name="sampler-scaffold" attributes="label responsiveWidth">
 <template>
 
   <link rel="stylesheet" href="sampler-scaffold.css">
 
-    <core-scroll-header-panel id="mainHeaderPanel" main mode="{{narrow ? 'waterfall' : 'cover'}}" condenses>
+  <core-drawer-panel id="drawerPanel" narrow="{{narrow}}" drawerWidth="320px" responsiveWidth="{{responsiveWidth}}">
 
-        <core-toolbar class="tall">
+    <core-header-panel id="mainHeaderPanel" main mode="{{narrow ? 'waterfall' : 'cover'}}" shadow>
 
-           <!-- <core-menu-button id="button1">
-                <core-icon-button icon="menu"></core-icon-button>
-                <core-dropdown class="dropdown">
-                    <core-menu id="menu1">
-                        <core-item foo="c">Cupcake</core-item>
-                        <core-item foo="d">Donut</core-item>
-                        <core-item foo="e">Eclair</core-item>
-                        <core-item foo="f">Froyo</core-item>
-                        <core-item foo="g">Gingerbread</core-item>
-                    </core-menu>
-                </core-dropdown>
-            </core-menu-button>-->
+      <core-toolbar class="{{ {'medium-tall' : !narrow} | tokenList }}">
+        <content select=".menuButton" on-tap="{{togglePanel}}">
+          <core-icon-button class="menuButton fallback" icon="menu"></core-icon-button>
+        </content>
+        <div hidden?="{{!narrow}}">{{item.label}}</div>
+          <content select=".sourceButton">
+              <paper-icon-button  class="sourceButton fallback" id="searchbutton" icon="search"></paper-icon-button>
+          </content>
+      </core-toolbar>
 
-            <paper-menu-button>
-                <paper-icon-button icon="menu" noink></paper-icon-button>
-                <paper-dropdown class="dropdown">
-                    <core-menu class="menu">
-                        <template repeat="{{menuSelect}}">
-                            <paper-item>{{}}</paper-item>
-                        </template>
-                    </core-menu>
-                </paper-dropdown>
-            </paper-menu-button>
+      <div id="card" on-transitionend="{{cardTransitionDone}}" hidden?="{{!item}}">
 
-            <div class="bottom indent title">Title</div>
-            <div flex></div>
-            <core-icon-button icon="search"></core-icon-button>
-            <core-icon-button icon="thumb-up"></core-icon-button>
-            <core-icon-button icon="mail"></core-icon-button>
+        <div class="element-label" hidden?="{{narrow}}">{{item.label}}</div>
 
-
-        </core-toolbar>
-
-        <div class="content">
-
-                <core-menu id="menu" on-core-select="{{menuSelect}}">
-                    <content></content>
-                </core-menu>
-
-                <div id="card" on-transitionend="{{cardTransitionDone}}" hidden?="{{!item}}">
-
-                    <div class="element-label" hidden?="{{narrow}}">{{item.label}}</div>
-
-                    <div id="frameContainer">
-                        <iframe id="frame" on-load="{{frameLoaded}}"></iframe>
-                    </div>
-
-                </div>
+        <div class="sidenav">
+            <h2>Passau</h2>
+            <ul>
+                <li>Lemon</li>
+                <li>Goa</li>
+                <li>Camera</li>
+                <li>Cuteroom</li>
+            </ul>
         </div>
-    </core-scroll-header-panel>
+        <div id="frameContainer">
+          <iframe id="frame" on-load="{{frameLoaded}}"></iframe>
+        </div>
+
+      </div>
+
+    </core-header-panel>
+
+    <core-header-panel drawer>
+
+      <core-toolbar class="{{ {'medium-tall' : !narrow} | tokenList }}">
+        <div class="bottom main-label fit">{{label}}</div>
+      </core-toolbar>
+      
+      <core-menu id="menu" on-core-select="{{menuSelect}}">
+        <content></content>
+      </core-menu>
+
+    </core-header-panel>
+
+  </core-drawer-panel>
 
 </template>
-
-
-    // not working
-    <script>
-
-        // custom transformation: scale header's title
-        var titleStyle = document.querySelector('.title').style;
-        addEventListener('core-header-transform', function(e) {
-            var d = e.detail;
-            var m = d.height - d.condensedHeight;
-            var scale = Math.max(0.75, (m - d.y) / (m / 0.25)  + 0.75);
-            titleStyle.transform = titleStyle.webkitTransform =
-                    'scale(' + scale + ') translateZ(0)';
-        });
-
-    </script>
-
 <script>
 
   Polymer('sampler-scaffold', {
@@ -140,7 +105,7 @@ of the scaffold.
      * @attribute responsiveWidth
      * @type string
      */
-    responsiveWidth: '860px',
+    responsiveWidth: '2500px',
     
     /**
      * Sampler label.
