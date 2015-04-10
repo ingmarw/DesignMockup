@@ -163,6 +163,20 @@ polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
     right: 0;
     margin-top: 20px;
     margin-right:8em;
+    width: 7em;
     border-left: 1px solid darkgrey;
 
+}
+
+.sidenav h2 {
+    text-align: center;
+    width: 5em;
+    margin-left: 21px;
+    border-bottom: 1px solid darkgray;
+}
+
+.sidenav li {
+    line-height: 2em;
+    list-style-type: none;
+    margin-left: 0;
 }
